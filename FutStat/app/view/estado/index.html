@@ -1,0 +1,60 @@
+﻿
+<div class="container" ng-app="app" ng-controller="EstadoCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Lista</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="estado in model.Estados" ng-include="getTemplate(estado)"></tr>
+
+                    <tr ng-if="model.Estados.length == 0">
+                        <td colspan="3">Não existem estados cadastradas</td>
+                    </tr>
+
+                    <tr ng-if="states.showForm">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Estado" ng-model="novo.DS_ESTADO" />
+                        </td>
+                        <td>
+                            <button ng-click="addEstado()" class="btn btn-primary">Salvar</button>
+                            <button ng-click="showForm(false)" class="btn btn-default">Cancelar</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <script type="text/ng-template" id="display">
+                <td>{{estado.DS_ESTADO}}</td>
+                <td>
+                    <a style="cursor: pointer">
+                        <i ng-click="edit(estado)" class="glyphicon glyphicon-edit" title="Editar"></i>
+                    </a>|
+                    <a ng-click="deleteEstado(estado, $index)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-trash" title="Excluir"></i>
+                    </a>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td>
+                    <input type="text" class="form-control" placeholder="Estado" ng-model="selecionado.DS_ESTADO" />
+                </td>
+                <td>
+                    <button ng-click="editEstado($index)" class="btn btn-primary">Salvar</button>
+                    <button ng-click="showForm(false)" class="btn btn-default">Cancelar</button>
+                </td>
+            </script>
+
+            <a ng-click="showForm(true)" class="btn btn-primary">Novo</a>
+        </div>
+    </div>
+</div>
+

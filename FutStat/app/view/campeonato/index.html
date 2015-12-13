@@ -1,0 +1,67 @@
+﻿
+<div class="container" ng-app="app" ng-controller="CampeonatoCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Lista</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Campeonato</th>
+                        <th>Temporada</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="campeonato in model.Campeonatos" ng-include="getTemplate(campeonato)">
+                    </tr>
+
+                    <tr ng-if="model.Campeonatos.length == 0">
+                        <td colspan="4">Não existem campeonatos cadastrados</td>
+                    </tr>
+
+                    <tr ng-show="states.showForm">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Campeonato" ng-model="novo.DS_NOME" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" placeholder="Temporada" ng-model="novo.NR_ANO_TEMPORADA" />
+                        </td>
+                        <td>
+                            <button ng-click="addCampeonato()" type="button" class="btn btn-primary">Salvar</button>
+                            <button ng-click="showForm(false)" type="button" class="btn btn-default">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <script type="text/ng-template" id="display">
+                <td>{{campeonato.DS_NOME}}</td>
+                <td>{{campeonato.NR_ANO_TEMPORADA}}</td>
+                <td>
+                    <a ng-click="edit(campeonato)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-edit" title="Editar"></i>
+                    </a>
+                    <a style="cursor: pointer">
+                        <i ng-click="deleteCampeonato(campeonato, $index)" class="glyphicon glyphicon-trash" title="Excluir"></i>
+                    </a>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td>
+                    <input type="text" class="form-control" placeholder="Campeonato" ng-model="selecionado.DS_NOME" />
+                </td>
+                <td>
+                    <input type="number" class="form-control" placeholder="Temporada" ng-model="selecionado.NR_ANO_TEMPORADA" />
+                </td>
+                <td>
+                    <button ng-click="editCampeonato($index)" type="button" class="btn btn-primary">Salvar</button>
+                    <button ng-click="showForm(false)" type="button" class="btn btn-default">Cancelar</button>
+                </td>
+            </script>
+
+            <a ng-click="showForm(true)" class="btn btn-primary">Novo</a>
+        </div>
+    </div>
+</div>

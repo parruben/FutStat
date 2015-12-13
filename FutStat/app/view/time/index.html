@@ -1,0 +1,82 @@
+﻿
+<div class="container" ng-app="app" ng-controller="TimeCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Lista</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Dt Fundação</th>
+                        <th>Estádio</th>
+                        <th>Cidade</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="time in model.Times" ng-include="getTemplate(time)"></tr>
+
+                    <tr ng-if="model.Times.length == 0">
+                        <td colspan="5">Não existem times cadastrados</td>
+                    </tr>
+
+                    <tr ng-if="states.ShowForm">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Time" ng-model="novo.DS_NOME" />
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" placeholder="Dt Fundação" ng-model="novo.DT_FUNDACAO" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Estádio" ng-model="novo.DS_ESTADIO" />
+                        </td>
+                        <td>
+                            <select class="form-control" ng-model="novo.CD_CIDADE">
+                                <option ng-repeat="cidade in model.Cidades" value="{{cidade.CD_CIDADE}}">{{cidade.DS_CIDADE}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button ng-click="addTime()" type="button" class="btn btn-primary">Salvar</button>
+                            <button ng-click="showForm(false)" type="button" class="btn btn-default">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <script type="text/ng-template" id="display">
+                <td>{{time.DS_NOME}}</td>
+                <td ng-init="returnDate(time, time.DT_FUNDACAO_ED)">{{time.DT_FUNDACAO_VW}}</td>
+                <td>{{time.DS_ESTADIO}}</td>
+                <td>{{time.cidade.DS_CIDADE}}</td>
+                <td>
+                    <a ng-click="edit(time)" style="cursor: pointer"><i class="glyphicon glyphicon-edit" title="Editar"></i></a>
+                    <a ng-click="deleteTime(time, $index)" style="cursor: pointer"><i class="glyphicon glyphicon-trash" title="Excluir"></i></a>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td>
+                    <input type="text" class="form-control" placeholder="Time" ng-model="selecionado.DS_NOME" />
+                </td>
+                <td>
+                    <input type="date" class="form-control" placeholder="Dt Fundação" ng-model="selecionado.DT_FUNDACAO" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" placeholder="Estádio" ng-model="selecionado.DS_ESTADIO" />
+                </td>
+                <td>
+                    <select class="form-control" ng-model="selecionado.CD_CIDADE">
+                        <option ng-repeat="cidade in model.Cidades" value="{{cidade.CD_CIDADE}}" ng-selected="selecionado.CD_CIDADE == cidade.CD_CIDADE">{{cidade.DS_CIDADE}}</option>
+                    </select>
+                </td>
+                <td>
+                    <button ng-click="editTime($index)" type="button" class="btn btn-primary">Salvar</button>
+                    <button ng-click="showForm(false)" type="button" class="btn btn-default">Cancelar</button>
+                </td>
+            </script>
+            <a ng-click="showForm(true)" class="btn btn-primary">Novo</a>
+        </div>
+    </div>
+</div>
+

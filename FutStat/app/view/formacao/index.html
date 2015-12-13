@@ -1,0 +1,83 @@
+﻿
+<div class="container" ng-app="app" ng-controller="FormacaoCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Lista</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Formação</th>
+                        <th>Qtd Zagueiros</th>
+                        <th>Qtd Meio Campo</th>
+                        <th>Qtd Atacantes</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="formacao in model.Formacoes" ng-include="getTemplate(formacao)">
+                    </tr>
+                    <tr ng-if="model.Formacoes.length == 0">
+                        <td colspan="5">Não existem formações cadastradas</td>
+                    </tr>
+
+                    <tr ng-if="states.showForm">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Formação" ng-model="novo.DS_FORMACAO" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" placeholder="Qt Zagueiros" ng-model="novo.QT_ZAGUEIRO" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" placeholder="Qt Meio Campo" ng-model="novo.QT_MEIO_CAMPO" />
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" placeholder="Qt Atacantes" ng-model="novo.QT_ATACANTE" />
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" ng-click="addFormacao()">Salvar</button>
+                            <button type="button" class="btn btn-default" ng-click="showForm(false)">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <script type="text/ng-template" id="display">
+                <td>{{formacao.DS_FORMACAO}}</td>
+                <td>{{formacao.QT_ZAGUEIRO}}</td>
+                <td>{{formacao.QT_MEIO_CAMPO}}</td>
+                <td>{{formacao.QT_ATACANTE}}</td>
+                <td>
+                    <a ng-click="edit(formacao)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-edit" title="Editar"></i>
+                    </a>
+                    <a ng-click="deleteFormacao(formacao, $index)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-trash" title="Excluir"></i>
+                    </a>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td>
+                    <input type="text" class="form-control" placeholder="Formação" ng-model="selecionado.DS_FORMACAO" />
+                </td>
+                <td>
+                    <input type="number" class="form-control" placeholder="Qt Zagueiros" ng-model="selecionado.QT_ZAGUEIRO" />
+                </td>
+                <td>
+                    <input type="number" class="form-control" placeholder="Qt Meio Campo" ng-model="selecionado.QT_MEIO_CAMPO" />
+                </td>
+                <td>
+                    <input type="number" class="form-control" placeholder="Qt Atacantes" ng-model="selecionado.QT_ATACANTE" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" ng-click="editFormacao($index)">Salvar</button>
+                    <button type="button" class="btn btn-default" ng-click="showForm(false)">Cancelar</button>
+                </td>
+            </script>
+
+            <a class="btn btn-primary" ng-click="showForm(true)">Novo</a>
+        </div>
+    </div>
+</div>
+

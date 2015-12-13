@@ -1,0 +1,50 @@
+﻿@model FutStat.Models.time_jogador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>time_jogador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_CHEGADA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_CHEGADA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_SAIDA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_SAIDA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jogador.DS_NOME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jogador.DS_NOME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.time.DS_NOME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.time.DS_NOME)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

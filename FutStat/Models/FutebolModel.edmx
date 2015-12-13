@@ -1,0 +1,873 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="futebolModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="campeonato">
+          <Key>
+            <PropertyRef Name="CD_CAMPEONATO" />
+          </Key>
+          <Property Name="CD_CAMPEONATO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_NOME" Type="varchar" MaxLength="200" />
+          <Property Name="DS_REGULAMENTO" Type="text" />
+          <Property Name="NR_ANO_TEMPORADA" Type="int" />
+        </EntityType>
+        <EntityType Name="campeonato_time">
+          <Key>
+            <PropertyRef Name="CD_TIME" />
+            <PropertyRef Name="CD_CAMPEONATO" />
+          </Key>
+          <Property Name="CD_TIME" Type="int" Nullable="false" />
+          <Property Name="CD_CAMPEONATO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cidade">
+          <Key>
+            <PropertyRef Name="CD_CIDADE" />
+          </Key>
+          <Property Name="CD_CIDADE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_CIDADE" Type="varchar" MaxLength="100" />
+          <Property Name="CD_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="CD_ESTADO" />
+          </Key>
+          <Property Name="CD_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_ESTADO" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="formacao">
+          <Key>
+            <PropertyRef Name="CD_FORMACAO" />
+          </Key>
+          <Property Name="CD_FORMACAO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_FORMACAO" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="QT_ZAGUEIRO" Type="int" Nullable="false" />
+          <Property Name="QT_MEIO_CAMPO" Type="int" Nullable="false" />
+          <Property Name="QT_ATACANTE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="jogador">
+          <Key>
+            <PropertyRef Name="CD_JOGADOR" />
+          </Key>
+          <Property Name="CD_JOGADOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CD_POSICAO" Type="int" Nullable="false" />
+          <Property Name="DS_NOME" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DS_SOBRENOME" Type="varchar" MaxLength="200" />
+          <Property Name="DS_APELIDO" Type="varchar" MaxLength="45" />
+          <Property Name="DT_NASCIMENTO" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="jogo">
+          <Key>
+            <PropertyRef Name="CD_JOGO" />
+          </Key>
+          <Property Name="CD_JOGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CD_CAMPEONATO" Type="int" Nullable="false" />
+          <Property Name="CD_TIME_MANDANTE" Type="int" Nullable="false" />
+          <Property Name="CD_TIME_VISITANTE" Type="int" Nullable="false" />
+          <Property Name="CD_FORMACAO_MANDANTE" Type="int" />
+          <Property Name="CD_FORMACAO_VISITANTE" Type="int" />
+          <Property Name="QT_GOL_MANDANTE" Type="int" Nullable="false" />
+          <Property Name="QT_GOL_VISITANTE" Type="int" Nullable="false" />
+          <Property Name="DS_FASE" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="DT_JOGO" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="TP_RESULTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="jogo_jogador">
+          <Key>
+            <PropertyRef Name="CD_JOGO" />
+            <PropertyRef Name="CD_JOGADOR" />
+          </Key>
+          <Property Name="CD_JOGO" Type="int" Nullable="false" />
+          <Property Name="CD_JOGADOR" Type="int" Nullable="false" />
+          <Property Name="NR_TEMPO_ENTRADA" Type="int" Nullable="false" />
+          <Property Name="NR_MINUTO_ENTRADA" Type="int" Nullable="false" />
+          <Property Name="SN_SUBSTITUIDO" Type="bool" Nullable="false" />
+          <Property Name="NR_TEMPO_SAIDA" Type="int" />
+          <Property Name="NR_MINUTO_SAIDA" Type="int" />
+          <Property Name="QT_GOL" Type="int" Nullable="false" />
+          <Property Name="QT_CARTAO_AMARELO" Type="int" Nullable="false" />
+          <Property Name="QT_CARTAO_VERMELHO" Type="int" Nullable="false" />
+          <Property Name="QT_FALTA_RECEBIDA" Type="int" Nullable="false" />
+          <Property Name="QT_FALTA_FEITA" Type="int" Nullable="false" />
+          <Property Name="QT_PASSE_CERTO" Type="int" Nullable="false" />
+          <Property Name="QT_PASSE_ERRADO" Type="int" Nullable="false" />
+          <Property Name="QT_ASSISTENCIA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="posicao">
+          <Key>
+            <PropertyRef Name="CD_POSICAO" />
+          </Key>
+          <Property Name="CD_POSICAO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_POSICAO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DS_SIGLA" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="time">
+          <Key>
+            <PropertyRef Name="CD_TIME" />
+          </Key>
+          <Property Name="CD_TIME" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DS_NOME" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DT_FUNDACAO" Type="date" />
+          <Property Name="DS_IMG_ESCUDO" Type="varchar" MaxLength="1000" />
+          <Property Name="DS_ESTADIO" Type="varchar" MaxLength="45" />
+          <Property Name="CD_CIDADE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="time_jogador">
+          <Key>
+            <PropertyRef Name="CD_TIME" />
+            <PropertyRef Name="CD_JOGADOR" />
+          </Key>
+          <Property Name="CD_TIME" Type="int" Nullable="false" />
+          <Property Name="CD_JOGADOR" Type="int" Nullable="false" />
+          <Property Name="DT_CHEGADA" Type="date" Nullable="false" />
+          <Property Name="DT_SAIDA" Type="date" />
+        </EntityType>
+        <Association Name="CNT_CAMPEONATO_TIME_CAMPEONATO_FK">
+          <End Role="campeonato" Type="Self.campeonato" Multiplicity="1" />
+          <End Role="campeonato_time" Type="Self.campeonato_time" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campeonato">
+              <PropertyRef Name="CD_CAMPEONATO" />
+            </Principal>
+            <Dependent Role="campeonato_time">
+              <PropertyRef Name="CD_CAMPEONATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_CAMPEONATO_TIME_TIME_FK">
+          <End Role="time" Type="Self.time" Multiplicity="1" />
+          <End Role="campeonato_time" Type="Self.campeonato_time" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="time">
+              <PropertyRef Name="CD_TIME" />
+            </Principal>
+            <Dependent Role="campeonato_time">
+              <PropertyRef Name="CD_TIME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_CIDADE_ESTADO_FK">
+          <End Role="estado" Type="Self.estado" Multiplicity="1" />
+          <End Role="cidade" Type="Self.cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado">
+              <PropertyRef Name="CD_ESTADO" />
+            </Principal>
+            <Dependent Role="cidade">
+              <PropertyRef Name="CD_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGADOR_POSICAO_FK">
+          <End Role="posicao" Type="Self.posicao" Multiplicity="1" />
+          <End Role="jogador" Type="Self.jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="posicao">
+              <PropertyRef Name="CD_POSICAO" />
+            </Principal>
+            <Dependent Role="jogador">
+              <PropertyRef Name="CD_POSICAO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_CAMPEONATO_FK">
+          <End Role="campeonato" Type="Self.campeonato" Multiplicity="1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campeonato">
+              <PropertyRef Name="CD_CAMPEONATO" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_CAMPEONATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_FORMACAO_MANDANTE_FK">
+          <End Role="formacao" Type="Self.formacao" Multiplicity="0..1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formacao">
+              <PropertyRef Name="CD_FORMACAO" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_FORMACAO_MANDANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_FORMACAO_VISITANTE_FK">
+          <End Role="formacao" Type="Self.formacao" Multiplicity="0..1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formacao">
+              <PropertyRef Name="CD_FORMACAO" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_FORMACAO_VISITANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_TIME_MANDANTE_FK">
+          <End Role="time" Type="Self.time" Multiplicity="1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="time">
+              <PropertyRef Name="CD_TIME" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_TIME_MANDANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_TIME_VISITANTE_FK">
+          <End Role="time" Type="Self.time" Multiplicity="1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="time">
+              <PropertyRef Name="CD_TIME" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_TIME_VISITANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_TIME_CIDADE_FK">
+          <End Role="cidade" Type="Self.cidade" Multiplicity="1" />
+          <End Role="time" Type="Self.time" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cidade">
+              <PropertyRef Name="CD_CIDADE" />
+            </Principal>
+            <Dependent Role="time">
+              <PropertyRef Name="CD_CIDADE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_TIME_JOGADOR_JOGADOR_FK">
+          <End Role="jogador" Type="Self.jogador" Multiplicity="1" />
+          <End Role="time_jogador" Type="Self.time_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Principal>
+            <Dependent Role="time_jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_TIME_JOGADOR_TIME_FK">
+          <End Role="time" Type="Self.time" Multiplicity="1" />
+          <End Role="time_jogador" Type="Self.time_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="time">
+              <PropertyRef Name="CD_TIME" />
+            </Principal>
+            <Dependent Role="time_jogador">
+              <PropertyRef Name="CD_TIME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_JOGADOR_has_JOGO_JOGADOR1">
+          <End Role="jogador" Type="Self.jogador" Multiplicity="1" />
+          <End Role="jogo_jogador" Type="Self.jogo_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Principal>
+            <Dependent Role="jogo_jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_JOGADOR_has_JOGO_JOGO1">
+          <End Role="jogo" Type="Self.jogo" Multiplicity="1" />
+          <End Role="jogo_jogador" Type="Self.jogo_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jogo">
+              <PropertyRef Name="CD_JOGO" />
+            </Principal>
+            <Dependent Role="jogo_jogador">
+              <PropertyRef Name="CD_JOGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="futebolModelStoreContainer">
+          <EntitySet Name="campeonato" EntityType="Self.campeonato" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="campeonato_time" EntityType="Self.campeonato_time" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="cidade" EntityType="Self.cidade" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="estado" EntityType="Self.estado" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="formacao" EntityType="Self.formacao" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="jogador" EntityType="Self.jogador" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="jogo" EntityType="Self.jogo" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="jogo_jogador" EntityType="Self.jogo_jogador" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="posicao" EntityType="Self.posicao" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="time" EntityType="Self.time" Schema="futebol" store:Type="Tables" />
+          <EntitySet Name="time_jogador" EntityType="Self.time_jogador" Schema="futebol" store:Type="Tables" />
+          <AssociationSet Name="CNT_CAMPEONATO_TIME_CAMPEONATO_FK" Association="Self.CNT_CAMPEONATO_TIME_CAMPEONATO_FK">
+            <End Role="campeonato" EntitySet="campeonato" />
+            <End Role="campeonato_time" EntitySet="campeonato_time" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_CAMPEONATO_TIME_TIME_FK" Association="Self.CNT_CAMPEONATO_TIME_TIME_FK">
+            <End Role="time" EntitySet="time" />
+            <End Role="campeonato_time" EntitySet="campeonato_time" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_CIDADE_ESTADO_FK" Association="Self.CNT_CIDADE_ESTADO_FK">
+            <End Role="estado" EntitySet="estado" />
+            <End Role="cidade" EntitySet="cidade" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGADOR_POSICAO_FK" Association="Self.CNT_JOGADOR_POSICAO_FK">
+            <End Role="posicao" EntitySet="posicao" />
+            <End Role="jogador" EntitySet="jogador" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_CAMPEONATO_FK" Association="Self.CNT_JOGO_CAMPEONATO_FK">
+            <End Role="campeonato" EntitySet="campeonato" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_FORMACAO_MANDANTE_FK" Association="Self.CNT_JOGO_FORMACAO_MANDANTE_FK">
+            <End Role="formacao" EntitySet="formacao" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_FORMACAO_VISITANTE_FK" Association="Self.CNT_JOGO_FORMACAO_VISITANTE_FK">
+            <End Role="formacao" EntitySet="formacao" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_TIME_MANDANTE_FK" Association="Self.CNT_JOGO_TIME_MANDANTE_FK">
+            <End Role="time" EntitySet="time" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_TIME_VISITANTE_FK" Association="Self.CNT_JOGO_TIME_VISITANTE_FK">
+            <End Role="time" EntitySet="time" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_TIME_CIDADE_FK" Association="Self.CNT_TIME_CIDADE_FK">
+            <End Role="cidade" EntitySet="cidade" />
+            <End Role="time" EntitySet="time" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_TIME_JOGADOR_JOGADOR_FK" Association="Self.CNT_TIME_JOGADOR_JOGADOR_FK">
+            <End Role="jogador" EntitySet="jogador" />
+            <End Role="time_jogador" EntitySet="time_jogador" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_TIME_JOGADOR_TIME_FK" Association="Self.CNT_TIME_JOGADOR_TIME_FK">
+            <End Role="time" EntitySet="time" />
+            <End Role="time_jogador" EntitySet="time_jogador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_JOGADOR_has_JOGO_JOGADOR1" Association="Self.fk_JOGADOR_has_JOGO_JOGADOR1">
+            <End Role="jogador" EntitySet="jogador" />
+            <End Role="jogo_jogador" EntitySet="jogo_jogador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_JOGADOR_has_JOGO_JOGO1" Association="Self.fk_JOGADOR_has_JOGO_JOGO1">
+            <End Role="jogo" EntitySet="jogo" />
+            <End Role="jogo_jogador" EntitySet="jogo_jogador" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="futebolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="campeonato">
+          <Key>
+            <PropertyRef Name="CD_CAMPEONATO" />
+          </Key>
+          <Property Name="CD_CAMPEONATO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DS_NOME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DS_REGULAMENTO" Type="String" />
+          <Property Name="NR_ANO_TEMPORADA" Type="Int32" />
+          <NavigationProperty Name="jogo" Relationship="Self.CNT_JOGO_CAMPEONATO_FK" FromRole="campeonato" ToRole="jogo" />
+          <NavigationProperty Name="time" Relationship="Self.campeonato_time" FromRole="campeonato" ToRole="time" />
+        </EntityType>
+        <EntityType Name="cidade">
+          <Key>
+            <PropertyRef Name="CD_CIDADE" />
+          </Key>
+          <Property Name="CD_CIDADE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DS_CIDADE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CD_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="estado" Relationship="Self.CNT_CIDADE_ESTADO_FK" FromRole="cidade" ToRole="estado" />
+          <NavigationProperty Name="time" Relationship="Self.CNT_TIME_CIDADE_FK" FromRole="cidade" ToRole="time" />
+        </EntityType>
+        <EntityType Name="estado">
+          <Key>
+            <PropertyRef Name="CD_ESTADO" />
+          </Key>
+          <Property Name="CD_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DS_ESTADO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cidade" Relationship="Self.CNT_CIDADE_ESTADO_FK" FromRole="estado" ToRole="cidade" />
+        </EntityType>
+        <EntityType Name="formacao">
+          <Key>
+            <PropertyRef Name="CD_FORMACAO" />
+          </Key>
+          <Property Name="CD_FORMACAO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DS_FORMACAO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QT_ZAGUEIRO" Type="Int32" Nullable="false" />
+          <Property Name="QT_MEIO_CAMPO" Type="Int32" Nullable="false" />
+          <Property Name="QT_ATACANTE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="jogo" Relationship="Self.CNT_JOGO_FORMACAO_MANDANTE_FK" FromRole="formacao" ToRole="jogo" />
+          <NavigationProperty Name="jogo1" Relationship="Self.CNT_JOGO_FORMACAO_VISITANTE_FK" FromRole="formacao" ToRole="jogo" />
+        </EntityType>
+        <EntityType Name="jogador">
+          <Key>
+            <PropertyRef Name="CD_JOGADOR" />
+          </Key>
+          <Property Name="CD_JOGADOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CD_POSICAO" Type="Int32" Nullable="false" />
+          <Property Name="DS_NOME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DS_SOBRENOME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DS_APELIDO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DT_NASCIMENTO" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="posicao" Relationship="Self.CNT_JOGADOR_POSICAO_FK" FromRole="jogador" ToRole="posicao" />
+          <NavigationProperty Name="time_jogador" Relationship="Self.CNT_TIME_JOGADOR_JOGADOR_FK" FromRole="jogador" ToRole="time_jogador" />
+          <NavigationProperty Name="jogo_jogador" Relationship="Self.fk_JOGADOR_has_JOGO_JOGADOR1" FromRole="jogador" ToRole="jogo_jogador" />
+        </EntityType>
+        <EntityType Name="jogo">
+          <Key>
+            <PropertyRef Name="CD_JOGO" />
+          </Key>
+          <Property Name="CD_JOGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CD_CAMPEONATO" Type="Int32" Nullable="false" />
+          <Property Name="CD_TIME_MANDANTE" Type="Int32" Nullable="false" />
+          <Property Name="CD_TIME_VISITANTE" Type="Int32" Nullable="false" />
+          <Property Name="CD_FORMACAO_MANDANTE" Type="Int32" />
+          <Property Name="CD_FORMACAO_VISITANTE" Type="Int32" />
+          <Property Name="QT_GOL_MANDANTE" Type="Int32" Nullable="false" />
+          <Property Name="QT_GOL_VISITANTE" Type="Int32" Nullable="false" />
+          <Property Name="DS_FASE" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DT_JOGO" Type="DateTime" Nullable="false" />
+          <Property Name="TP_RESULTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="campeonato" Relationship="Self.CNT_JOGO_CAMPEONATO_FK" FromRole="jogo" ToRole="campeonato" />
+          <NavigationProperty Name="formacao" Relationship="Self.CNT_JOGO_FORMACAO_MANDANTE_FK" FromRole="jogo" ToRole="formacao" />
+          <NavigationProperty Name="formacao1" Relationship="Self.CNT_JOGO_FORMACAO_VISITANTE_FK" FromRole="jogo" ToRole="formacao" />
+          <NavigationProperty Name="time" Relationship="Self.CNT_JOGO_TIME_MANDANTE_FK" FromRole="jogo" ToRole="time" />
+          <NavigationProperty Name="time1" Relationship="Self.CNT_JOGO_TIME_VISITANTE_FK" FromRole="jogo" ToRole="time" />
+          <NavigationProperty Name="jogo_jogador" Relationship="Self.fk_JOGADOR_has_JOGO_JOGO1" FromRole="jogo" ToRole="jogo_jogador" />
+        </EntityType>
+        <EntityType Name="jogo_jogador">
+          <Key>
+            <PropertyRef Name="CD_JOGO" />
+            <PropertyRef Name="CD_JOGADOR" />
+          </Key>
+          <Property Name="CD_JOGO" Type="Int32" Nullable="false" />
+          <Property Name="CD_JOGADOR" Type="Int32" Nullable="false" />
+          <Property Name="NR_TEMPO_ENTRADA" Type="Int32" Nullable="false" />
+          <Property Name="NR_MINUTO_ENTRADA" Type="Int32" Nullable="false" />
+          <Property Name="SN_SUBSTITUIDO" Type="Boolean" Nullable="false" />
+          <Property Name="NR_TEMPO_SAIDA" Type="Int32" />
+          <Property Name="NR_MINUTO_SAIDA" Type="Int32" />
+          <Property Name="QT_GOL" Type="Int32" Nullable="false" />
+          <Property Name="QT_CARTAO_AMARELO" Type="Int32" Nullable="false" />
+          <Property Name="QT_CARTAO_VERMELHO" Type="Int32" Nullable="false" />
+          <Property Name="QT_FALTA_RECEBIDA" Type="Int32" Nullable="false" />
+          <Property Name="QT_FALTA_FEITA" Type="Int32" Nullable="false" />
+          <Property Name="QT_PASSE_CERTO" Type="Int32" Nullable="false" />
+          <Property Name="QT_PASSE_ERRADO" Type="Int32" Nullable="false" />
+          <Property Name="QT_ASSISTENCIA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="jogador" Relationship="Self.fk_JOGADOR_has_JOGO_JOGADOR1" FromRole="jogo_jogador" ToRole="jogador" />
+          <NavigationProperty Name="jogo" Relationship="Self.fk_JOGADOR_has_JOGO_JOGO1" FromRole="jogo_jogador" ToRole="jogo" />
+        </EntityType>
+        <EntityType Name="posicao">
+          <Key>
+            <PropertyRef Name="CD_POSICAO" />
+          </Key>
+          <Property Name="CD_POSICAO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DS_POSICAO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DS_SIGLA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="jogador" Relationship="Self.CNT_JOGADOR_POSICAO_FK" FromRole="posicao" ToRole="jogador" />
+        </EntityType>
+        <EntityType Name="time">
+          <Key>
+            <PropertyRef Name="CD_TIME" />
+          </Key>
+          <Property Name="CD_TIME" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DS_NOME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DT_FUNDACAO" Type="DateTime" />
+          <Property Name="DS_IMG_ESCUDO" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="DS_ESTADIO" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CD_CIDADE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cidade" Relationship="Self.CNT_TIME_CIDADE_FK" FromRole="time" ToRole="cidade" />
+          <NavigationProperty Name="jogo" Relationship="Self.CNT_JOGO_TIME_MANDANTE_FK" FromRole="time" ToRole="jogo" />
+          <NavigationProperty Name="jogo1" Relationship="Self.CNT_JOGO_TIME_VISITANTE_FK" FromRole="time" ToRole="jogo" />
+          <NavigationProperty Name="time_jogador" Relationship="Self.CNT_TIME_JOGADOR_TIME_FK" FromRole="time" ToRole="time_jogador" />
+          <NavigationProperty Name="campeonato" Relationship="Self.campeonato_time" FromRole="time" ToRole="campeonato" />
+        </EntityType>
+        <EntityType Name="time_jogador">
+          <Key>
+            <PropertyRef Name="CD_TIME" />
+            <PropertyRef Name="CD_JOGADOR" />
+          </Key>
+          <Property Name="CD_TIME" Type="Int32" Nullable="false" />
+          <Property Name="CD_JOGADOR" Type="Int32" Nullable="false" />
+          <Property Name="DT_CHEGADA" Type="DateTime" Nullable="false" />
+          <Property Name="DT_SAIDA" Type="DateTime" />
+          <NavigationProperty Name="jogador" Relationship="Self.CNT_TIME_JOGADOR_JOGADOR_FK" FromRole="time_jogador" ToRole="jogador" />
+          <NavigationProperty Name="time" Relationship="Self.CNT_TIME_JOGADOR_TIME_FK" FromRole="time_jogador" ToRole="time" />
+        </EntityType>
+        <Association Name="CNT_JOGO_CAMPEONATO_FK">
+          <End Role="campeonato" Type="Self.campeonato" Multiplicity="1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campeonato">
+              <PropertyRef Name="CD_CAMPEONATO" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_CAMPEONATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_CIDADE_ESTADO_FK">
+          <End Role="estado" Type="Self.estado" Multiplicity="1" />
+          <End Role="cidade" Type="Self.cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado">
+              <PropertyRef Name="CD_ESTADO" />
+            </Principal>
+            <Dependent Role="cidade">
+              <PropertyRef Name="CD_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_TIME_CIDADE_FK">
+          <End Role="cidade" Type="Self.cidade" Multiplicity="1" />
+          <End Role="time" Type="Self.time" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cidade">
+              <PropertyRef Name="CD_CIDADE" />
+            </Principal>
+            <Dependent Role="time">
+              <PropertyRef Name="CD_CIDADE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_FORMACAO_MANDANTE_FK">
+          <End Role="formacao" Type="Self.formacao" Multiplicity="0..1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formacao">
+              <PropertyRef Name="CD_FORMACAO" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_FORMACAO_MANDANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_FORMACAO_VISITANTE_FK">
+          <End Role="formacao" Type="Self.formacao" Multiplicity="0..1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formacao">
+              <PropertyRef Name="CD_FORMACAO" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_FORMACAO_VISITANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGADOR_POSICAO_FK">
+          <End Role="posicao" Type="Self.posicao" Multiplicity="1" />
+          <End Role="jogador" Type="Self.jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="posicao">
+              <PropertyRef Name="CD_POSICAO" />
+            </Principal>
+            <Dependent Role="jogador">
+              <PropertyRef Name="CD_POSICAO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_TIME_JOGADOR_JOGADOR_FK">
+          <End Role="jogador" Type="Self.jogador" Multiplicity="1" />
+          <End Role="time_jogador" Type="Self.time_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Principal>
+            <Dependent Role="time_jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_JOGADOR_has_JOGO_JOGADOR1">
+          <End Role="jogador" Type="Self.jogador" Multiplicity="1" />
+          <End Role="jogo_jogador" Type="Self.jogo_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Principal>
+            <Dependent Role="jogo_jogador">
+              <PropertyRef Name="CD_JOGADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_TIME_MANDANTE_FK">
+          <End Role="time" Type="Self.time" Multiplicity="1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="time">
+              <PropertyRef Name="CD_TIME" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_TIME_MANDANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_JOGO_TIME_VISITANTE_FK">
+          <End Role="time" Type="Self.time" Multiplicity="1" />
+          <End Role="jogo" Type="Self.jogo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="time">
+              <PropertyRef Name="CD_TIME" />
+            </Principal>
+            <Dependent Role="jogo">
+              <PropertyRef Name="CD_TIME_VISITANTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_JOGADOR_has_JOGO_JOGO1">
+          <End Role="jogo" Type="Self.jogo" Multiplicity="1" />
+          <End Role="jogo_jogador" Type="Self.jogo_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jogo">
+              <PropertyRef Name="CD_JOGO" />
+            </Principal>
+            <Dependent Role="jogo_jogador">
+              <PropertyRef Name="CD_JOGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CNT_TIME_JOGADOR_TIME_FK">
+          <End Role="time" Type="Self.time" Multiplicity="1" />
+          <End Role="time_jogador" Type="Self.time_jogador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="time">
+              <PropertyRef Name="CD_TIME" />
+            </Principal>
+            <Dependent Role="time_jogador">
+              <PropertyRef Name="CD_TIME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="campeonato_time">
+          <End Role="campeonato" Type="Self.campeonato" Multiplicity="*" />
+          <End Role="time" Type="Self.time" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="futebolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="campeonato" EntityType="Self.campeonato" />
+          <EntitySet Name="cidade" EntityType="Self.cidade" />
+          <EntitySet Name="estado" EntityType="Self.estado" />
+          <EntitySet Name="formacao" EntityType="Self.formacao" />
+          <EntitySet Name="jogador" EntityType="Self.jogador" />
+          <EntitySet Name="jogo" EntityType="Self.jogo" />
+          <EntitySet Name="jogo_jogador" EntityType="Self.jogo_jogador" />
+          <EntitySet Name="posicao" EntityType="Self.posicao" />
+          <EntitySet Name="time" EntityType="Self.time" />
+          <EntitySet Name="time_jogador" EntityType="Self.time_jogador" />
+          <AssociationSet Name="CNT_JOGO_CAMPEONATO_FK" Association="Self.CNT_JOGO_CAMPEONATO_FK">
+            <End Role="campeonato" EntitySet="campeonato" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_CIDADE_ESTADO_FK" Association="Self.CNT_CIDADE_ESTADO_FK">
+            <End Role="estado" EntitySet="estado" />
+            <End Role="cidade" EntitySet="cidade" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_TIME_CIDADE_FK" Association="Self.CNT_TIME_CIDADE_FK">
+            <End Role="cidade" EntitySet="cidade" />
+            <End Role="time" EntitySet="time" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_FORMACAO_MANDANTE_FK" Association="Self.CNT_JOGO_FORMACAO_MANDANTE_FK">
+            <End Role="formacao" EntitySet="formacao" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_FORMACAO_VISITANTE_FK" Association="Self.CNT_JOGO_FORMACAO_VISITANTE_FK">
+            <End Role="formacao" EntitySet="formacao" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGADOR_POSICAO_FK" Association="Self.CNT_JOGADOR_POSICAO_FK">
+            <End Role="posicao" EntitySet="posicao" />
+            <End Role="jogador" EntitySet="jogador" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_TIME_JOGADOR_JOGADOR_FK" Association="Self.CNT_TIME_JOGADOR_JOGADOR_FK">
+            <End Role="jogador" EntitySet="jogador" />
+            <End Role="time_jogador" EntitySet="time_jogador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_JOGADOR_has_JOGO_JOGADOR1" Association="Self.fk_JOGADOR_has_JOGO_JOGADOR1">
+            <End Role="jogador" EntitySet="jogador" />
+            <End Role="jogo_jogador" EntitySet="jogo_jogador" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_TIME_MANDANTE_FK" Association="Self.CNT_JOGO_TIME_MANDANTE_FK">
+            <End Role="time" EntitySet="time" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_JOGO_TIME_VISITANTE_FK" Association="Self.CNT_JOGO_TIME_VISITANTE_FK">
+            <End Role="time" EntitySet="time" />
+            <End Role="jogo" EntitySet="jogo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_JOGADOR_has_JOGO_JOGO1" Association="Self.fk_JOGADOR_has_JOGO_JOGO1">
+            <End Role="jogo" EntitySet="jogo" />
+            <End Role="jogo_jogador" EntitySet="jogo_jogador" />
+          </AssociationSet>
+          <AssociationSet Name="CNT_TIME_JOGADOR_TIME_FK" Association="Self.CNT_TIME_JOGADOR_TIME_FK">
+            <End Role="time" EntitySet="time" />
+            <End Role="time_jogador" EntitySet="time_jogador" />
+          </AssociationSet>
+          <AssociationSet Name="campeonato_time" Association="Self.campeonato_time">
+            <End Role="campeonato" EntitySet="campeonato" />
+            <End Role="time" EntitySet="time" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="futebolModelStoreContainer" CdmEntityContainer="futebolEntities">
+          <EntitySetMapping Name="campeonato">
+            <EntityTypeMapping TypeName="futebolModel.campeonato">
+              <MappingFragment StoreEntitySet="campeonato">
+                <ScalarProperty Name="CD_CAMPEONATO" ColumnName="CD_CAMPEONATO" />
+                <ScalarProperty Name="DS_NOME" ColumnName="DS_NOME" />
+                <ScalarProperty Name="DS_REGULAMENTO" ColumnName="DS_REGULAMENTO" />
+                <ScalarProperty Name="NR_ANO_TEMPORADA" ColumnName="NR_ANO_TEMPORADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cidade">
+            <EntityTypeMapping TypeName="futebolModel.cidade">
+              <MappingFragment StoreEntitySet="cidade">
+                <ScalarProperty Name="CD_CIDADE" ColumnName="CD_CIDADE" />
+                <ScalarProperty Name="DS_CIDADE" ColumnName="DS_CIDADE" />
+                <ScalarProperty Name="CD_ESTADO" ColumnName="CD_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estado">
+            <EntityTypeMapping TypeName="futebolModel.estado">
+              <MappingFragment StoreEntitySet="estado">
+                <ScalarProperty Name="CD_ESTADO" ColumnName="CD_ESTADO" />
+                <ScalarProperty Name="DS_ESTADO" ColumnName="DS_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formacao">
+            <EntityTypeMapping TypeName="futebolModel.formacao">
+              <MappingFragment StoreEntitySet="formacao">
+                <ScalarProperty Name="CD_FORMACAO" ColumnName="CD_FORMACAO" />
+                <ScalarProperty Name="DS_FORMACAO" ColumnName="DS_FORMACAO" />
+                <ScalarProperty Name="QT_ZAGUEIRO" ColumnName="QT_ZAGUEIRO" />
+                <ScalarProperty Name="QT_MEIO_CAMPO" ColumnName="QT_MEIO_CAMPO" />
+                <ScalarProperty Name="QT_ATACANTE" ColumnName="QT_ATACANTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jogador">
+            <EntityTypeMapping TypeName="futebolModel.jogador">
+              <MappingFragment StoreEntitySet="jogador">
+                <ScalarProperty Name="CD_JOGADOR" ColumnName="CD_JOGADOR" />
+                <ScalarProperty Name="CD_POSICAO" ColumnName="CD_POSICAO" />
+                <ScalarProperty Name="DS_NOME" ColumnName="DS_NOME" />
+                <ScalarProperty Name="DS_SOBRENOME" ColumnName="DS_SOBRENOME" />
+                <ScalarProperty Name="DS_APELIDO" ColumnName="DS_APELIDO" />
+                <ScalarProperty Name="DT_NASCIMENTO" ColumnName="DT_NASCIMENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jogo">
+            <EntityTypeMapping TypeName="futebolModel.jogo">
+              <MappingFragment StoreEntitySet="jogo">
+                <ScalarProperty Name="CD_JOGO" ColumnName="CD_JOGO" />
+                <ScalarProperty Name="CD_CAMPEONATO" ColumnName="CD_CAMPEONATO" />
+                <ScalarProperty Name="CD_TIME_MANDANTE" ColumnName="CD_TIME_MANDANTE" />
+                <ScalarProperty Name="CD_TIME_VISITANTE" ColumnName="CD_TIME_VISITANTE" />
+                <ScalarProperty Name="CD_FORMACAO_MANDANTE" ColumnName="CD_FORMACAO_MANDANTE" />
+                <ScalarProperty Name="CD_FORMACAO_VISITANTE" ColumnName="CD_FORMACAO_VISITANTE" />
+                <ScalarProperty Name="QT_GOL_MANDANTE" ColumnName="QT_GOL_MANDANTE" />
+                <ScalarProperty Name="QT_GOL_VISITANTE" ColumnName="QT_GOL_VISITANTE" />
+                <ScalarProperty Name="DS_FASE" ColumnName="DS_FASE" />
+                <ScalarProperty Name="DT_JOGO" ColumnName="DT_JOGO" />
+                <ScalarProperty Name="TP_RESULTADO" ColumnName="TP_RESULTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jogo_jogador">
+            <EntityTypeMapping TypeName="futebolModel.jogo_jogador">
+              <MappingFragment StoreEntitySet="jogo_jogador">
+                <ScalarProperty Name="CD_JOGO" ColumnName="CD_JOGO" />
+                <ScalarProperty Name="CD_JOGADOR" ColumnName="CD_JOGADOR" />
+                <ScalarProperty Name="NR_TEMPO_ENTRADA" ColumnName="NR_TEMPO_ENTRADA" />
+                <ScalarProperty Name="NR_MINUTO_ENTRADA" ColumnName="NR_MINUTO_ENTRADA" />
+                <ScalarProperty Name="SN_SUBSTITUIDO" ColumnName="SN_SUBSTITUIDO" />
+                <ScalarProperty Name="NR_TEMPO_SAIDA" ColumnName="NR_TEMPO_SAIDA" />
+                <ScalarProperty Name="NR_MINUTO_SAIDA" ColumnName="NR_MINUTO_SAIDA" />
+                <ScalarProperty Name="QT_GOL" ColumnName="QT_GOL" />
+                <ScalarProperty Name="QT_CARTAO_AMARELO" ColumnName="QT_CARTAO_AMARELO" />
+                <ScalarProperty Name="QT_CARTAO_VERMELHO" ColumnName="QT_CARTAO_VERMELHO" />
+                <ScalarProperty Name="QT_FALTA_RECEBIDA" ColumnName="QT_FALTA_RECEBIDA" />
+                <ScalarProperty Name="QT_FALTA_FEITA" ColumnName="QT_FALTA_FEITA" />
+                <ScalarProperty Name="QT_PASSE_CERTO" ColumnName="QT_PASSE_CERTO" />
+                <ScalarProperty Name="QT_PASSE_ERRADO" ColumnName="QT_PASSE_ERRADO" />
+                <ScalarProperty Name="QT_ASSISTENCIA" ColumnName="QT_ASSISTENCIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posicao">
+            <EntityTypeMapping TypeName="futebolModel.posicao">
+              <MappingFragment StoreEntitySet="posicao">
+                <ScalarProperty Name="CD_POSICAO" ColumnName="CD_POSICAO" />
+                <ScalarProperty Name="DS_POSICAO" ColumnName="DS_POSICAO" />
+                <ScalarProperty Name="DS_SIGLA" ColumnName="DS_SIGLA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="time">
+            <EntityTypeMapping TypeName="futebolModel.time">
+              <MappingFragment StoreEntitySet="time">
+                <ScalarProperty Name="CD_TIME" ColumnName="CD_TIME" />
+                <ScalarProperty Name="DS_NOME" ColumnName="DS_NOME" />
+                <ScalarProperty Name="DT_FUNDACAO" ColumnName="DT_FUNDACAO" />
+                <ScalarProperty Name="DS_IMG_ESCUDO" ColumnName="DS_IMG_ESCUDO" />
+                <ScalarProperty Name="DS_ESTADIO" ColumnName="DS_ESTADIO" />
+                <ScalarProperty Name="CD_CIDADE" ColumnName="CD_CIDADE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="time_jogador">
+            <EntityTypeMapping TypeName="futebolModel.time_jogador">
+              <MappingFragment StoreEntitySet="time_jogador">
+                <ScalarProperty Name="CD_TIME" ColumnName="CD_TIME" />
+                <ScalarProperty Name="CD_JOGADOR" ColumnName="CD_JOGADOR" />
+                <ScalarProperty Name="DT_CHEGADA" ColumnName="DT_CHEGADA" />
+                <ScalarProperty Name="DT_SAIDA" ColumnName="DT_SAIDA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="campeonato_time" TypeName="futebolModel.campeonato_time" StoreEntitySet="campeonato_time">
+            <EndProperty Name="campeonato">
+              <ScalarProperty Name="CD_CAMPEONATO" ColumnName="CD_CAMPEONATO" />
+            </EndProperty>
+            <EndProperty Name="time">
+              <ScalarProperty Name="CD_TIME" ColumnName="CD_TIME" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

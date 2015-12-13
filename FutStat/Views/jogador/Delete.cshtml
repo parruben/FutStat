@@ -1,0 +1,64 @@
+﻿@model FutStat.Models.jogador
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>jogador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DS_NOME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DS_NOME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DS_SOBRENOME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DS_SOBRENOME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DS_APELIDO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DS_APELIDO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DT_NASCIMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DT_NASCIMENTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.posicao.DS_POSICAO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.posicao.DS_POSICAO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,67 @@
+﻿
+<div class="container" ng-app="app" >
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Lista</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Sigla</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pos in model.Posicoes" ng-include="getTemplate(pos)"></tr>
+
+                    <tr ng-if="model.Posicoes.length == 0">
+                        <td colspan="3">Não existem posições cadastradas</td>
+                    </tr>
+
+                    <tr ng-if="states.showForm">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Posição" ng-model="novo.DS_POSICAO" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" placeholder="Sigla" ng-model="novo.DS_SIGLA" />
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" ng-click="addPosicao()">Salvar</button>
+                            <button type="button" class="btn btn-default" ng-click="showForm(false)">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <script type="text/ng-template" id="display">
+                <td>{{pos.DS_POSICAO}}</td>
+                <td>{{pos.DS_SIGLA}}</td>
+                <td>
+                    <a ng-click="edit(pos)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-edit" title="Editar"></i>
+                    </a> |
+                    <a ng-click="deletePosicao(pos, $index)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-trash" title="Excluir"></i>
+                    </a>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td>
+                    <input type="text" class="form-control" placeholder="Posição" ng-model="selecionado.DS_POSICAO" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" placeholder="Sigla" ng-model="selecionado.DS_SIGLA" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" ng-click="editPosicao($index)">Salvar</button>
+                    <button type="button" class="btn btn-default" ng-click="showForm(false)">Cancelar</button>
+                </td>
+            </script>
+
+            <a ng-click="showForm(true)" class="btn btn-primary">Novo</a>
+
+        </div>
+    </div>
+</div>
+

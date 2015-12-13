@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FutStat.Models.time_jogador>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DT_CHEGADA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DT_SAIDA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.jogador.DS_NOME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.time.DS_NOME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DT_CHEGADA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DT_SAIDA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.jogador.DS_NOME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.time.DS_NOME)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

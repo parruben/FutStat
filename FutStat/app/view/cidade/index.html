@@ -1,0 +1,69 @@
+﻿
+<div class="container" ng-app="app" ng-controller="CidadeCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Lista</h2>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="cidade in model.Cidades" ng-include="getTemplate(cidade)"></tr>
+
+                    <tr ng-if="states.ShowForm">
+                        <td>
+                            <input type="text" class="form-control" placeholder="Cidade" ng-model="novo.DS_CIDADE" />
+                        </td>
+                        <td>
+                            <select class="form-control" ng-model="novo.CD_ESTADO">
+                                <option ng-repeat="estado in model.Estados" value="{{estado.CD_ESTADO}}">{{estado.DS_ESTADO}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button ng-click="addCidade()" type="button" class="btn btn-primary">Salvar</button>
+                            <button ng-click="showForm(false)" type="button" class="btn btn-default">Cancelar</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <script type="text/ng-template" id="display">
+                <td>{{cidade.DS_CIDADE}}</td>
+                <td>{{cidade.estado.DS_ESTADO}}</td>
+                <td>
+                    <a ng-click="edit(cidade)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-edit" title="Editar"></i>
+                    </a> |
+                    <a ng-click="deleteCidade(cidade, $index)" style="cursor: pointer">
+                        <i class="glyphicon glyphicon-trash" title="Excluir"></i>
+                    </a>
+                </td>
+            </script>
+            <script type="text/ng-template" id="edit">
+                <td>
+                    <input type="text" class="form-control" placeholder="Cidade" ng-model="selecionado.DS_CIDADE" />
+                </td>
+                <td>
+                    <select class="form-control" ng-model="selecionado.CD_ESTADO">
+                        <option ng-repeat="estado in model.Estados" value="{{estado.CD_ESTADO}}" ng-selected="selecionado.CD_ESTADO == estado.CD_ESTADO">{{estado.DS_ESTADO}}</option>
+                    </select>
+                </td>
+                <td>
+                    <button ng-click="editCidade($index)" type="button" class="btn btn-primary">Salvar</button>
+                    <button ng-click="showForm(false)" type="button" class="btn btn-default">Cancelar</button>
+                </td>
+            </script>
+
+            <a ng-click="showForm(true)" class="btn btn-primary">Novo</a>
+        </div>
+    </div>
+</div>
+
